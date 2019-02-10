@@ -42,7 +42,8 @@ for Directory in *; do
                         bash ${Directory}/${file}
                     ;;
                     [nN][oO]|[nN])
-                        exit 1
+                        echo "Not installing ${Directory}"
+                        continue
                     ;;
                     *)
                         echo "-----------------------------------"
