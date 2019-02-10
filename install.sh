@@ -8,6 +8,8 @@ echo "---------------------------"
 echo "-     Determining OS      -"
 echo "---------------------------"
 
+echo ${OS}
+
 if [[ -f /etc/redhat-release ]]; then
     OS=CentOS
 elif [[ -f /etc/debian_version ]]; then
@@ -30,10 +32,26 @@ for Directory in *; do
                 echo "-----------------------------------"
                 echo "-   Found ${Directory}/${file}    -"
                 echo "-----------------------------------"
-                echo "-----------------------------------"
-                echo "- Executing ${Directory}/${file}  -"
-                echo "-----------------------------------"
-                bash ${Directory}/${file}
+                read -r -p "Installing ${Directory} with sudo privileges are you sure you want to continue? [Y/n] " input
+
+                case ${input} in
+                    [yY][eE][sS]|[yY])
+                        echo "-----------------------------------"
+                        echo "- Executing ${Directory}/${file}  -"
+                        echo "-----------------------------------"
+                        bash ${Directory}/${file}
+                    ;;
+                    [nN][oO]|[nN])
+                        exit 1
+                    ;;
+                    *)
+                        echo "-----------------------------------"
+                        echo "- Executing ${Directory}/${file}  -"
+                        echo "-----------------------------------"
+                        bash ${Directory}/${file}
+                    ;;
+                    esac
+
                 echo "-----------------------------------"
                 echo "-  Executed ${Directory}/${file}  -"
                 echo "-----------------------------------"
