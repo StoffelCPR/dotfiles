@@ -1,0 +1,14 @@
+[user]
+	email = stoffel2107@gmail.com
+	name = Stoffel
+	signingkey = 79B596F991F35147
+[commit]
+	gpgsign = true
+[core]
+	excludesfile = /home/stoffel/.gitignore_global
+	editor = vim
+	autocrlf = false
+	ignorecase = false
+	quotepath = false
+[merge]
+	tool = vimdiff
