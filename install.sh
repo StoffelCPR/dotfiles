@@ -27,12 +27,16 @@ for Directory in *; do
     if [[ -d ${Directory} ]]; then
         for file in $(ls ${Directory}); do
             if [[ ${file} == "install.sh" ]]; then
-                echo "Found ${Directory}/${file}"
-                echo "Executing ${Directory}/${file}"
+                echo "-----------------------------------"
+                echo "-   Found ${Directory}/${file}    -"
+                echo "-----------------------------------"
+                echo "-----------------------------------"
+                echo "- Executing ${Directory}/${file}  -"
+                echo "-----------------------------------"
                 bash ${Directory}/${file}
-                echo "--------------------------------"
+                echo "-----------------------------------"
                 echo "-  Executed ${Directory}/${file}  -"
-                echo "--------------------------------"
+                echo "-----------------------------------"
             fi
         done
     fi

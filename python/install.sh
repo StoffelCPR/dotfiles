@@ -4,6 +4,8 @@ echo "########################################"
 echo "#       Stoffel python3.6 setup        #"
 echo "########################################"
 
+filepath=$( cd "$(dirname "$0")" ; pwd )
+
 if [[ ${OS} == Debian ]]; then
     echo "Using sudo to update and install git with apt-get. Please enter password"
     sudo apt-get update
