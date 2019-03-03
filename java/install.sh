@@ -23,20 +23,25 @@ if [[ ${OS} == Debian ]]; then
         sudo mkdir /var/lib/java
     } || {
         echo "Moving JDK files to java directory"
-        echo "Moving JDK 7 to /var/lib/java/java7..."
-        sudo mv jdk-7u80-linux-x64.tar.gz /var/lib/java/java7
+        echo "Extracting Moving JDK 7 to /var/lib/java/java7..."
+        sudo tar xvzf jdk-7u80-linux-x64.tar.gz
+        #sudo mv jdk-7u80 /var/lib/java/java7
         echo "...done"
-        echo "Moving JDK 8 to /var/lib/java/java8..."
-        sudo mv jdk-8u201-linux-x64.tar.gz /var/lib/java/java8
+        echo "Extracting Moving JDK 8 to /var/lib/java/java8..."
+        sudo tar xvzf jdk-8u201-linux-x64.tar.gz
+        sudo mv jdk1.8.0_201 /var/lib/java/java8
         echo "...done"
-        echo "Moving JDK 9 to /var/lib/java/java9..."
-        sudo mv jdk-9.0.4_linux-x64_bin.tar.gz /var/lib/java/java9
+        echo "Extracting Moving JDK 9 to /var/lib/java/java9..."
+        sudo tar xvzf jdk-9.0.4_linux-x64_bin.tar.gz
+        #sudo mv jdk-9.0.4 /var/lib/java/java9
         echo "...done"
-        echo "Moving JDK 10 to /var/lib/java/java10..."
-        sudo mv jdk-10.0.2_linux-x64_bin.tar.gz /var/lib/java/java10
+        echo "Extracting Moving JDK 10 to /var/lib/java/java10..."
+        sudo tar xvzf jdk-10.0.2_linux-x64_bin.tar.gz
+        #sudo mv jdk-10.0.2_linux-x64_bin.tar.gz /var/lib/java/java10
         echo "...done"
-        echo "Moving JDK 11 to /var/lib/java/java11..."
-        sudo mv jdk-11.0.2_linux-x64_bin.tar.gz /var/lib/java/java11
+        echo "Extracting Moving JDK 11 to /var/lib/java/java11..."
+        sudo tar xvzf jdk-11.0.2_linux-x64_bin.tar.gz
+        sudo mv jdk-11.0.2 /var/lib/java/java11
         echo "...done"
     }
 
