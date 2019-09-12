@@ -6,15 +6,15 @@ echo "########################################"
 
 filepath=$( cd "$(dirname "$0")" ; pwd )
 
-declare -a jdk_urls=(https://download.oracle.com/otn/java/jdk/7u80-b15/jdk-7u80-linux-x64.tar.gz https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u201-linux-x64.tar.gz https://download.oracle.com/otn/java/jdk/9.0.4+11/c2514751926b4512b076cc82f959763f/jdk-9.0.4_linux-x64_bin.tar.gz https://download.oracle.com/otn/java/jdk/10.0.2+13/19aef61b38124481863b1413dce1855f/jdk-10.0.2_linux-x64_bin.tar.gz http://download.oracle.com/otn-pub/java/jdk/11.0.2+9/f51449fcd52f4d52b93a989c5c56ed3c/jdk-11.0.2_linux-x64_bin.tar.gz)
+declare -a jdk_urls=(https://download.java.net/openjdk/jdk7u75/ri/openjdk-7u75-b13-linux-x64-18_dec_2014.tar.gz https://download.java.net/openjdk/jdk8u40/ri/openjdk-8u40-b25-linux-x64-10_feb_2015.tar.gz https://download.java.net/openjdk/jdk9/ri/openjdk-9+181_linux-x64_ri.zip https://download.java.net/openjdk/jdk10/ri/openjdk-10+44_linux-x64_bin_ri.tar.gz https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz https://download.java.net/openjdk/jdk12/ri/openjdk-12+32_linux-x64_bin.tar.gz https://download.java.net/openjdk/jdk13/ri/openjdk-13+33_linux-x64_bin.tar.gz)
 
 I=7
 for url in "${jdk_urls[@]}" ; do
     echo "Processing JDK ${I}"
-    curl -C - -LR#OH "Cookie: oraclelicense=accept-securebackup-cookie" ${url}
+    curl -o java${I} ${url}
     I=$((${I} + 1))
+    break
 done
-
 
 
 if [[ ${OS} == Debian ]]; then
@@ -23,28 +23,38 @@ if [[ ${OS} == Debian ]]; then
         sudo mkdir /var/lib/java
     } || {
         echo "Moving JDK files to java directory"
-        echo "Extracting Moving JDK 7 to /var/lib/java/java7..."
-        sudo tar xvzf jdk-7u80-linux-x64.tar.gz
+        echo "Extracting & Moving JDK 7 to /var/lib/java/java7..."
+        sudo mkdir java7-1
+        sudo tar xvzf java7 -C java7-1
         #sudo mv jdk-7u80 /var/lib/java/java7
         echo "...done"
-        echo "Extracting Moving JDK 8 to /var/lib/java/java8..."
-        sudo tar xvzf jdk-8u201-linux-x64.tar.gz
-        sudo mv jdk1.8.0_201 /var/lib/java/java8
+        exit 1
+        echo "Extracting & Moving JDK 8 to /var/lib/java/java8..."
+        sudo tar xvzf java8
+        #sudo mv jdk1.8.0_201 /var/lib/java/java8
         echo "...done"
-        echo "Extracting Moving JDK 9 to /var/lib/java/java9..."
-        sudo tar xvzf jdk-9.0.4_linux-x64_bin.tar.gz
+        echo "Extracting & Moving JDK 9 to /var/lib/java/java9..."
+        sudo unzip java9
         #sudo mv jdk-9.0.4 /var/lib/java/java9
         echo "...done"
-        echo "Extracting Moving JDK 10 to /var/lib/java/java10..."
-        sudo tar xvzf jdk-10.0.2_linux-x64_bin.tar.gz
+        echo "Extracting & Moving JDK 10 to /var/lib/java/java10..."
+        sudo tar xvzf java10
         #sudo mv jdk-10.0.2_linux-x64_bin.tar.gz /var/lib/java/java10
         echo "...done"
-        echo "Extracting Moving JDK 11 to /var/lib/java/java11..."
-        sudo tar xvzf jdk-11.0.2_linux-x64_bin.tar.gz
-        sudo mv jdk-11.0.2 /var/lib/java/java11
+        echo "Extracting & Moving JDK 11 to /var/lib/java/java11..."
+        sudo tar xvzf java11
+        #sudo mv jdk-11.0.2 /var/lib/java/java11
+        echo "...done"
+        echo "Extracting & Moving JDK 12 to /var/lib/java/java11..."
+        sudo tar xvzf java12
+        #sudo mv jdk-11.0.2 /var/lib/java/java11
+        echo "...done"
+        echo "Extracting & Moving JDK 13 to /var/lib/java/java11..."
+        sudo tar xvzf java13
+        #sudo mv jdk-11.0.2 /var/lib/java/java11
         echo "...done"
     }
-
+    exit 1
     echo "Copying cjava command to /bin..."
     sudo cp java/dotfiles/cjava /bin/
     echo "...done"
