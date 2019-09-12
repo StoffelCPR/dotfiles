@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+RED="\033[1;31m"
+GREEN="\033[1;32m"
+YELLOW="\033[1;33m"
+UNDERLINED="\e[4m"
+NORMAL="\e[0m"
+NOCOLOR="\033[0m"
+
 echo "########################################"
 echo "#          Stoffel java setup          #"
 echo "########################################"
@@ -19,15 +26,14 @@ done
 
 if [[ ${OS} == Debian ]]; then
     {
-        echo "Creating java directory"
-        sudo mkdir /var/lib/java
+        echo -e "${YELLOW}Creating java directory${NOCOLOR}"
+        [[ $(sudo mkdir ./jtest) ]] && echo -e "${GREEN}...done${NOCOLOR}"
     } || {
-        echo "Moving JDK files to java directory"
-        echo "Extracting & Moving JDK 7 to /var/lib/java/java7..."
+        echo -e "${YELLOW}Extracting & Moving JDK 7 to /var/lib/java/java7...${NOCOLOR}"
         sudo mkdir java7-1
         sudo tar xvzf java7 -C java7-1
         #sudo mv jdk-7u80 /var/lib/java/java7
-        echo "...done"
+        echo -e "${GREEN}...done${NOCOLOR}"
         exit 1
         echo "Extracting & Moving JDK 8 to /var/lib/java/java8..."
         sudo tar xvzf java8
