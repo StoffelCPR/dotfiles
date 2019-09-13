@@ -3,34 +3,41 @@
 RED="\033[1;31m"
 GREEN="\033[1;32m"
 YELLOW="\033[1;33m"
+BLUE="\033[1;34m"
+MAGENTA="\033[1;35m"
 UNDERLINED="\e[4m"
 NORMAL="\e[0m"
+BOLD="\e[1m"
 NOCOLOR="\033[0m"
 
 echo "########################################"
 echo "#       Stoffel dotfiles setup         #"
 echo "########################################"
 
-echo "---------------------------"
-echo "-     Determining OS      -"
-echo "---------------------------"
-
-echo ${OS}
-
-if [[ -f /etc/redhat-release ]]; then
-    OS=CentOS
-elif [[ -f /etc/debian_version ]]; then
-    OS=Debian
+if [[ ${OSTYPE} == "msys" || ${OSTYPE} == "win32" || ${OSTYPE} == "darwin" ]]; then
+  echo "Please install a proper operating system to use this dotfiles project."
 fi
 
-echo "OS is ${OS}"
-echo "Exporting OS variable for all scripts"
+echo -e "${YELLOW}---------------------------"
+echo "-     Determining OS      -"
+echo -e "---------------------------${NOCOLOR}"
 
-export OS
+echo "${MAGENTA}${OSTYPE}${NOCOLOR}"
 
-echo "-----------------------------------"
-echo "-    Finding install.sh files     -"
-echo "-----------------------------------"
+if [[ -f /etc/redhat-release ]]; then
+    OS=CentOS && echo -e "${GREEN}...done OS is ${OS}${NOCOLOR}"
+elif [[ -f /etc/debian_version ]]; then
+    OS=Debian && echo -e "${GREEN}...done. OS is ${OS}/${OS} based${NOCOLOR}"
+fi
+
+
+echo -e "${YELLOW}Exporting OS variable for all scripts${NOCOLOR}"
+
+export OS && echo -e "${GREEN}...done${NOCOLOR}"
+
+echo -e "${YELLOW}${BOLD}-----------------------------------"
+echo "-   Searching install.sh files    -"
+echo -e "-----------------------------------${NORMAL}"
 
 for Directory in *; do
     if [[ -d ${Directory} ]]; then
@@ -38,14 +45,14 @@ for Directory in *; do
             if [[ ${file} == "install.sh" ]]; then
                 echo -e "${GREEN}-----------------------------------"
                 echo -e "-   Found ${UNDERLINED}${Directory}/${file}${NORMAL}    -"
-                echo -e "-----------------------------------${NOCOLOR}"
+                echo -e "${GREEN}-----------------------------------${NOCOLOR}"
                 read -r -p "Installing ${Directory} with sudo privileges are you sure you want to continue? [Y/n]" input
 
                 case ${input} in
                     [yY][eE][sS]|[yY])
                         echo -e "${YELLOW}-----------------------------------"
                         echo -e "- Executing ${UNDERLINED}${Directory}/${file}${NORMAL}  -"
-                        echo -e "-----------------------------------${NOCOLOR}"
+                        echo -e "${YELLOW}-----------------------------------${NOCOLOR}"
                         bash ${Directory}/${file}
                     ;;
                     [nN][oO]|[nN])
@@ -55,14 +62,14 @@ for Directory in *; do
                     *)
                         echo -e "${YELLOW}-----------------------------------"
                         echo -e "- Executing ${UNDERLINED}${Directory}/${file}${NORMAL}  -"
-                        echo -e "-----------------------------------${NOCOLOR}"
+                        echo -e "${YELLOW}-----------------------------------${NOCOLOR}"
                         bash ${Directory}/${file}
                     ;;
                     esac
 
                 echo -e "${GREEN}-----------------------------------"
                 echo -e "-  Executed ${UNDERLINED}${Directory}/${file}${NORMAL}  -"
-                echo -e "-----------------------------------${NOCOLOR}"
+                echo -e "${GREEN}-----------------------------------${NOCOLOR}"
             fi
         done
     fi
