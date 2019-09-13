@@ -1,3 +1,6 @@
 [submodule "zsh_ohmyzsh"]
 	path = zsh_ohmyzsh
 	url = https://github.com/stoffel2107/stoffels-zsh.git
+[submodule "dotfiles.java"]
+	path = dotfiles.java
+	url = git@github.com:stoffel2107/dotfiles.java.git
